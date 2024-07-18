@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "invent-expo-3",
-    "slug": "invent-expo-3",
+    "name": "Silly App",
+    "slug": "silly-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.tamas.varga.sillyapp"
     },
     "web": {
       "bundler": "metro",
