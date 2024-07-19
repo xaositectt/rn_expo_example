@@ -5,7 +5,12 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
+import { helloWorld } from '@/modules/speedometer';
+
 export default function HomeScreen() {
+
+  console.log('calling hello world module', helloWorld())
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
