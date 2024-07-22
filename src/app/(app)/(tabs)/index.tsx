@@ -1,4 +1,4 @@
-import { Button, Image, StyleSheet, Platform, Text } from "react-native";
+import { Button, Image, NativeModules, StyleSheet, Platform, Text } from "react-native";
 
 import { HelloWave } from "@/src/components/HelloWave";
 import ParallaxScrollView from "@/src/components/ParallaxScrollView";
@@ -14,6 +14,15 @@ import { useSession } from "@/utils/AuthContext";
 export default function HomeScreen() {
   console.log("calling hello world module", helloWorld());
   const { signOut } = useSession();
+
+  // detect device language
+  const deviceLanguage =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale // iOS
+    : NativeModules.I18nManager.localeIdentifier;
+
+  console.log('device language', deviceLanguage)
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
