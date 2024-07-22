@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Button, Image, StyleSheet, Platform } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -6,6 +6,8 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
 import { helloWorld } from '@/modules/speedometer';
+
+import { setItem, getItem, getAllItems } from '@/utils/AsyncStorage';
 
 export default function HomeScreen() {
 
@@ -23,6 +25,24 @@ export default function HomeScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Hello World!</ThemedText>
         <HelloWave />
+        <Button
+          title="Button 1"
+          onPress={() => {
+            console.log('set localstore')
+            setItem('hello', 'world')
+          }}
+          color="#841584"
+        />
+        <Button
+          title="Button 2"
+          onPress={() => {
+            console.log('get localstore')
+            getAllItems().then(items => {
+              console.log('getting items', items)
+            })
+          }}
+          color="#841584"
+        />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
