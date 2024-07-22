@@ -51,6 +51,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="widget_preview"
+        options={{
+          title: 'Widget preview',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'footsteps' : 'footsteps-outline'} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="(user)"
         options={{
           href: null,
