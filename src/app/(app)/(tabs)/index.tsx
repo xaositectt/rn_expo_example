@@ -10,6 +10,8 @@ import { helloWorld } from "@/modules/speedometer";
 import { setItem, getItem, getAllItems } from "@/utils/AsyncStorage";
 import { Link, Redirect } from "expo-router";
 import { useSession } from "@/utils/AuthContext";
+import ExampleToast from "@/src/components/Toast";
+import { useState } from "react";
 
 export default function HomeScreen() {
   console.log("calling hello world module", helloWorld());
@@ -22,6 +24,8 @@ export default function HomeScreen() {
     : NativeModules.I18nManager.localeIdentifier;
 
   console.log('device language', deviceLanguage)
+
+  const [isToastVisible, setIsToastVisible] = useState(false)
 
   return (
     <ParallaxScrollView
@@ -56,6 +60,21 @@ export default function HomeScreen() {
           }}
           color="#841584"
         />
+        <Button
+          title="Show toast"
+          onPress={() => {
+            setIsToastVisible(true)
+          }}
+          color="#841584"
+        />
+        <Button
+          title="Hide toast"
+          onPress={() => {
+            setIsToastVisible(false)
+          }}
+          color="#841584"
+        />
+        <ExampleToast visible={isToastVisible} message="TOAST TO DISPLAY"/>
         <Link href="/user/1?query=hello_world">View first user details</Link>
         <Link href="/user/1?query=redirect">Redirect to root</Link>
         <Text
