@@ -41,6 +41,15 @@ export default function TabLayout() {
           ),
         }}
       />
+       <Tabs.Screen
+        name="step_counter"
+        options={{
+          title: 'Step Counter',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'footsteps' : 'footsteps-outline'} color={color} />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="(user)"
         options={{
