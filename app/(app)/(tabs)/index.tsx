@@ -1,4 +1,4 @@
-import { Button, Image, StyleSheet, Platform } from "react-native";
+import { Button, Image, StyleSheet, Platform, Text } from "react-native";
 
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
@@ -9,10 +9,11 @@ import { helloWorld } from "@/modules/speedometer";
 
 import { setItem, getItem, getAllItems } from "@/utils/AsyncStorage";
 import { Link, Redirect } from "expo-router";
+import { useSession } from "@/utils/AuthContext";
 
 export default function HomeScreen() {
   console.log("calling hello world module", helloWorld());
-
+  const { signOut } = useSession();
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
@@ -48,6 +49,14 @@ export default function HomeScreen() {
         />
         <Link href="/user/1?query=hello_world">View first user details</Link>
         <Link href="/user/1?query=redirect">Redirect to root</Link>
+        <Text
+          onPress={() => {
+            // The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
+            signOut();
+          }}
+        >
+          Sign Out
+        </Text>
       </ThemedView>
     </ParallaxScrollView>
   );
