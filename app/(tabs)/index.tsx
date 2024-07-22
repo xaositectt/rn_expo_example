@@ -47,6 +47,7 @@ export default function HomeScreen() {
           color="#841584"
         />
         <Link href="/user/1?query=hello_world">View first user details</Link>
+        <Link href="/user/1?query=redirect">Redirect to root</Link>
       </ThemedView>
     </ParallaxScrollView>
   );
