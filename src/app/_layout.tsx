@@ -13,6 +13,7 @@ import { useColorScheme } from "@/src/hooks/useColorScheme";
 import { Text } from "react-native";
 import { SessionProvider } from "@/utils/AuthContext";
 import { RootSiblingParent } from "react-native-root-siblings";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -35,6 +36,7 @@ export default function RootLayout() {
 
   return (
     <RootSiblingParent>
+      <GestureHandlerRootView>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <>
           <Link
@@ -54,6 +56,7 @@ export default function RootLayout() {
           </SessionProvider>
         </>
       </ThemeProvider>
+      </GestureHandlerRootView>
     </RootSiblingParent>
   );
 }

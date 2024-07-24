@@ -60,7 +60,7 @@ export default function App() {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={imageSource} style={styles.image} />
-        {pickedEmoji && <EmojiSticker imageSize={100} stickerSource={pickedEmoji} />}
+        {pickedEmoji && <EmojiSticker imageSize={50} stickerSource={pickedEmoji} />}
       </View>
       {showAppOptions ? (
         <View style={styles.optionsContainer}>
