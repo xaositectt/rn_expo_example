@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, Image, Text } from "react-native";
 import Button from "@/src/components/Button";
-import { useState } from "react";
+import React, { LegacyRef, useRef, useState } from "react";
 import EmojiPicker from "@/src/components/EmojiPicker";
 
 const PlaceholderImage = require("@/assets/images/kappa.jpg");
@@ -11,15 +11,23 @@ import CircleButton from "@/src/components/CircleButton";
 import IconButton from "@/src/components/IconButton";
 import EmojiSticker from "@/src/components/EmojiSticker";
 import EmojiList from "@/src/components/EmojiList";
+import * as MediaLibrary from "expo-media-library";
+import { captureRef } from "react-native-view-shot";
 
 export default function App() {
+  const imageRef = useRef(null)
+
+  const [status, requestPermission] = MediaLibrary.usePermissions();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showAppOptions, setShowAppOptions] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | undefined>(
     undefined
   );
-
   const [pickedEmoji, setPickedEmoji] = useState(null);
+
+  if (status === null) {
+    requestPermission();
+  }
 
   const onReset = () => {
     setShowAppOptions(false);
@@ -31,10 +39,6 @@ export default function App() {
 
   const onModalClose = () => {
     setIsModalVisible(false);
-  };
-
-  const onSaveImageAsync = async () => {
-    // we will implement this later
   };
 
   const pickImageAsync = async () => {
@@ -54,13 +58,33 @@ export default function App() {
     }
   };
 
+  const onSaveImageAsync = async () => {
+    try {
+      const localUri = await captureRef(imageRef, {
+        height: 440,
+        quality: 1,
+      });
+
+      await MediaLibrary.saveToLibraryAsync(localUri);
+      if (localUri) {
+        alert("Saved!");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const imageSource = selectedImage ? { uri: selectedImage } : PlaceholderImage;
 
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image source={imageSource} style={styles.image} />
-        {pickedEmoji && <EmojiSticker imageSize={50} stickerSource={pickedEmoji} />}
+        <View ref={imageRef} collapsable={false}>
+          <Image source={imageSource} style={styles.image} />
+          {pickedEmoji && (
+            <EmojiSticker imageSize={50} stickerSource={pickedEmoji} />
+          )}
+        </View>
       </View>
       {showAppOptions ? (
         <View style={styles.optionsContainer}>
@@ -129,11 +153,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   optionsContainer: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 80,
   },
   optionsRow: {
-    alignItems: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    flexDirection: "row",
   },
 });
